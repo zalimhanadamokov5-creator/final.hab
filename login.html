@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - Школа №25</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #2c6fbb 0%, #4a90e2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #1e4a8a 0%, #2c6fbb 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 4px solid #764ba2;
+        }
+        
+        .school-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .school-city {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .login-form {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1e4a8a;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #2c6fbb;
+            box-shadow: 0 0 0 3px rgba(44, 111, 187, 0.2);
+            background: white;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #2c6fbb 0%, #1e4a8a 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(44, 111, 187, 0.3);
+        }
+        
+        .login-btn:hover {
+            background: linear-gradient(135deg, #1e4a8a 0%, #2c6fbb 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(44, 111, 187, 0.4);
+        }
+        
+        .admin-info {
+            background: #f0f7ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #764ba2;
+            border-top: 1px solid #e1e8f0;
+            border-right: 1px solid #e1e8f0;
+            border-bottom: 1px solid #e1e8f0;
+        }
+        
+        .admin-info h3 {
+            color: #1e4a8a;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .credentials {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #e1e8f0;
+        }
+        
+        .credential-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eef2f7;
+        }
+        
+        .credential-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .cred-label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .cred-value {
+            font-family: monospace;
+            color: #2c6fbb;
+            font-weight: bold;
+            background: #f0f7ff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #d1e0ff;
+        }
+        
+        .footer {
+            text-align: center;
+            color: #4a5568;
+            font-size: 14px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e8f0;
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s;
+            border: 1px solid #2ecc71;
+        }
+        
+        .error-message {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s;
+            border: 1px solid #e74c3c;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .show-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #2c6fbb;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .show-password:hover {
+            background: rgba(44, 111, 187, 0.1);
+        }
+        
+        .password-wrapper {
+            position: relative;
+        }
+        
+        /* Добавим декоративные элементы как на фото */
+        .login-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #764ba2, #2c6fbb);
+        }
+        
+        .admin-info h3::before {
+            content: "📋";
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="school-name">Школа №25</div>
+            <div class="school-city">г. Нальчик, Кабардино-Балкарская Республика</div>
+        </div>
+        
+        <div class="login-form">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Логин:</label>
+                    <input type="text" id="username" placeholder="Введите логин" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" placeholder="Введите пароль" required>
+                        <button type="button" class="show-password" onclick="togglePassword()">👁️</button>
+                    </div>
+                </div>
+                
+                <button type="submit" class="login-btn">Войти в систему</button>
+            </form>
+            
+            <div id="successMessage" class="success-message">
+                ✅ Вход выполнен успешно! Перенаправление...
+            </div>
+            
+            <div id="errorMessage" class="error-message">
+                ❌ Неверный логин или пароль!
+            </div>
+            
+            <div class="admin-info">
+                <h3>Тестовые данные для входа:</h3>
+                <div class="credentials">
+                    <div class="credential-item">
+                        <span class="cred-label">Логин:</span>
+                        <span class="cred-value">admin</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="cred-label">Пароль:</span>
+                        <span class="cred-value">admin</span>
+                    </div>
+                </div>
+                <p style="margin-top: 10px; color: #4a5568; font-size: 14px; line-height: 1.4;">
+                    Используйте эти данные для доступа к административной панели школы
+                </p>
+            </div>
+            
+            <div class="footer">
+                © 2025 Школа №25 г. Нальчик<br>
+                
+        </div>
+    </div>
+
+    <script>
+        // Показать/скрыть пароль
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const button = document.querySelector('.show-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                button.textContent = '🔒';
+            } else {
+                passwordInput.type = 'password';
+                button.textContent = '👁️';
+            }
+        }
+        
+        // Обработка формы входа
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Скрыть предыдущие сообщения
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Проверка логина и пароля
+            if (username === 'admin' && password === 'admin') {
+                successMessage.style.display = 'block';
+                
+                // Имитация перенаправления
+                setTimeout(() => {
+                    window.location.href = 'admin.html';
+                }, 1500);
+            } else {
+                errorMessage.style.display = 'block';
+                
+                // Очистка поля пароля
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+            }
+        });
+        
+        // Автозаполнение для удобства тестирования
+        document.addEventListener('DOMContentLoaded', function() {
+            // Автозаполнение для демонстрации
+            setTimeout(() => {
+                document.getElementById('username').value = 'admin';
+                document.getElementById('password').value = 'admin';
+            }, 1000);
+            
+            console.log('Страница входа готова к использованию');
+            console.log('Для входа используйте:');
+            console.log('Логин: admin');
+            console.log('Пароль: admin');
+        });
+    </script>
+</body>
+</html>
